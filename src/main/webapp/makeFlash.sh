@@ -28,10 +28,11 @@ t=/tmp/flash$$
 
 src=$1
 dst=$2
-for p in 20 40 60 80 100
-do
-  convert $src -fill white -colorize ${p}% -transparent-color white $t.$p.gif
-done
+convert $src -evaluate multiply 0.8 -evaluate add  20% $t.20.gif
+convert $src -evaluate multiply 0.6 -evaluate add  40% $t.40.gif
+convert $src -evaluate multiply 0.4 -evaluate add  60% $t.60.gif
+convert $src -evaluate multiply 0.2 -evaluate add  80% $t.80.gif
+convert $src -evaluate multiply 0   -evaluate add 100% $t.100.gif
 convert -delay 10 $src $t.20.gif $t.40.gif $t.60.gif $t.80.gif $t.100.gif $t.80.gif $t.60.gif $t.40.gif $t.20.gif -loop 0 $dst
 
 rm $t.*.gif
